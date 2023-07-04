@@ -614,7 +614,7 @@ input {
   position: fixed; /* Stay in place */
   top: 0;
   width: 100%; /* Full width */
-  z-index: 1; /* Sit on top */
+  z-index: 3; /* Sit on top */
 }
 
 /* Modal Content/Box */

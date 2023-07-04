@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import Header from '../common/Header';
+import SideBar from '../common/SideBar';
 import Notification from './Notification';
 import Context from '../../context';
 
@@ -45,7 +46,11 @@ const Notifications = () => {
     <div>
       <div id="header">
         <Header />
+        <div id="sidebarHome">
+          <SideBar/>
+        </div>
       </div>
+      
       {renderNotifications()}
     </div>
   );

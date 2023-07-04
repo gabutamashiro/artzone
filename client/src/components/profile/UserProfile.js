@@ -1,5 +1,5 @@
 const UserProfile = (props) => {
-  const { userProfile, onFollowClicked, authenticatedUser } = props;
+  const { userProfile, onFollowClicked, authenticatedUser, countPosts} = props;
 
   if (!userProfile) {
     return <></>;
@@ -17,7 +17,7 @@ const UserProfile = (props) => {
         </div>
         <div className="user-profile__famous">
           <div className="user-profile__famous-item">
-            <span className="user-profile__famous-item-content">{userProfile.user_number_of_posts}</span>
+            <span className="user-profile__famous-item-content">{countPosts}</span>
             <span>posts</span>
           </div>
           <div className="user-profile__famous-item">

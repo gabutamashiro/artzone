@@ -42,10 +42,17 @@ const Header = (props) => {
     history.push('/chat');
   };
 
+  const goSearch = () => {
+    history.push('/search');
+  };
+
   return (
     <div>
       <div className="header">
           <img onClick={goHome} src={logo} alt="ArtZone" />
+          <div className='search'>
+           {/* <input type="text"/> */}
+          </div>
       </div>
     </div>
   );

@@ -152,7 +152,7 @@ const Profile = (props) => {
         <Header />
       </div>
       <SideBar/>
-      <UserProfile userProfile={userProfile} onFollowClicked={onFollowClicked} authenticatedUser={user} />
+      <UserProfile userProfile={userProfile} countPosts={Object.values(posts).length} onFollowClicked={onFollowClicked} authenticatedUser={user} />
       <Actions onItemClicked={onItemClicked} />
       <Posts posts={posts} customStyle={{ paddingTop: 0 }} />
     </div>
