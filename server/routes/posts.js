@@ -3,7 +3,7 @@ module.exports = function ({ app, dbConn, upload }) {
     const file = req.file;
     if (!file) {
       res.status(200).jsonp({
-        message: "Please upload your post image",
+        message: "Insira sua imagem",
       });
     } else {
       const postContent = `/${file.filename}`;
@@ -18,11 +18,11 @@ module.exports = function ({ app, dbConn, upload }) {
           if (insertedPost) {
             res.status(200).jsonp({ id: insertedPost.insertId, post_content: postContent, post_category: postCategory, post_created_date: postCreatedDate, post_created_by: postCreatedBy, post_description: postDescription });
           } else {
-            res.status(200).jsonp({ message: 'Cannot upload your post, please try again' });
+            res.status(200).jsonp({ message: 'Não foi possível fazer o post. Tente novamente.' });
           }
         });
       } else {
-        res.status(200).jsonp({ message: 'Cannot upload your post, please try again' });
+        res.status(200).jsonp({ message: 'Não foi possível fazer o post. Tente novamente.' });
       }
     }
   });
@@ -33,7 +33,7 @@ module.exports = function ({ app, dbConn, upload }) {
       if (posts) {
         res.status(200).jsonp(posts);
       } else {
-        res.status(200).jsonp({ message: 'Cannot get your posts, please try again' });
+        res.status(200).jsonp({ message: 'Não foi possível recuperar seus posts. Tente novamente.' });
       }
     });
   });
@@ -42,7 +42,7 @@ module.exports = function ({ app, dbConn, upload }) {
     const id = req.params.id;
     const getPostSql = "SELECT post.id, post_content, post_category, post_created_date, post_created_by, post_description, post_number_of_reactions, user_account.user_avatar, user_account.user_full_name, user_account.user_number_of_followers FROM post INNER JOIN user_account ON post.post_created_by = user_account.id WHERE post.id = ?";
     if (!id) {
-      res.status(200).jsonp({ message: 'Cannot load the post detail, please try again' });
+      res.status(200).jsonp({ message: 'Não foi possível carregar os detalhes. Tente novamente.' });
     }
     dbConn.query(getPostSql, [id], function (error, response) {
       if (response && response.length) {
@@ -58,7 +58,7 @@ module.exports = function ({ app, dbConn, upload }) {
     const updateNumberOfReactionsSql = "UPDATE post SET post_number_of_reactions = ? WHERE id = ?";
     dbConn.query(updateNumberOfReactionsSql, [numberOfReactions, id], function (err, updatedPost) {
       if (err) {
-        res.status(200).jsonp({ message: "The system error. Please try again" });
+        res.status(200).jsonp({ message: "Erro no sistema. Por favor tente novamente." });
       } else if (updatedPost) {
         res.status(200).jsonp({ id });
       }
@@ -68,14 +68,14 @@ module.exports = function ({ app, dbConn, upload }) {
   app.post('/posts/categories', (req, res) => { 
     const { userId, postCategory } = req.body;
     if (!userId || !postCategory) {
-      res.status(200).jsonp({ message: 'Cannot load your posts, please try again' });
+      res.status(200).jsonp({ message: 'Não foi possível carregar seus posts. Tente novamente.' });
     }
     const getPostsSql = "SELECT * FROM post WHERE post_created_by = ? AND post_category = ? ORDER BY post_created_date DESC";
     dbConn.query(getPostsSql, [userId, postCategory], function (error, posts) {
       if (posts) {
         res.status(200).jsonp(posts);
       } else {
-        res.status(200).jsonp({ message: 'Cannot get your posts, please try again' });
+        res.status(200).jsonp({ message: 'Não foi possível carregar seus posts. Tente novamente. ' });
       }
     });
   });

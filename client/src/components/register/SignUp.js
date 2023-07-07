@@ -28,27 +28,27 @@ function SignUp(props) {
 
   const isSignupValid = ({ fullname, email, password, confirmPassword }) => {
     if (!userAvatar) {
-      alert("Please upload your avatar");
+      alert("Insira sua foto de perfil");
       return false;
     }
     if (validator.isEmpty(fullname)) {
-      alert("Please input your fullname");
+      alert("Insira seu nome");
       return false;
     }
     if (!validator.isEmail(email)) {
-      alert("Please input your email");
+      alert("Insira seu email");
       return false;
     }
     if (validator.isEmpty(password) || !validator.isLength(password, { min: 6 })) {
-      alert("Please input your password. You password must have at least 6 characters");
+      alert("Insira sua senha. Ela deve ter pelo menos 6 caracteres");
       return false;
     }
     if (validator.isEmpty(confirmPassword)) {
-      alert("Please input your confirm password");
+      alert("Confirme sua senha");
       return false;
     }
     if (password !== confirmPassword) {
-      alert("Confirm password and password must be the same");
+      alert("Os campos de senha devem ser iguais");
       return false;
     }
     return true;
@@ -89,7 +89,7 @@ function SignUp(props) {
       } else {
         const createdAccount = await createCometChatAccount({ userUuid, fullname, avatar: `http://localhost:8080/${response.data.avatar}` });
         if (createdAccount) {
-          alert(`${email} was created successfully! Please sign in with your created account`);
+          alert(`${email} foi criada com sucesso! Faça login com sua conta!`);
         }
       }
       toggleModal(false);

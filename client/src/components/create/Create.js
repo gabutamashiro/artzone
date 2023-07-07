@@ -40,7 +40,7 @@ const Create = (props) => {
 
   const uploadPost = async () => {
     if (!uploadedPostImage) {
-      alert('please upload your post image or video');
+      alert('Arraste sua imagem aqui');
       return false;
     }
     setIsLoading(true);
@@ -52,7 +52,7 @@ const Create = (props) => {
     } else {
       await updateNumberOfPosts();
       setHasNewPost(true);
-      alert('Your post was uploaded successfully');
+      alert('Sua arte foi postada com sucesso!');
     }
     setIsLoading(false);
     toggleModal(false);

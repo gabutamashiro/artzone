@@ -56,7 +56,7 @@ const Login = (props) => {
         setIsLoading(false);
         history.push('/');
       } else { 
-        alert('Failure to log in, please try again');
+        alert('Falha ao logar. Tente novamente.');
         setIsLoading(false);
       }
     }

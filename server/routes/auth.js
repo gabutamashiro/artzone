@@ -7,11 +7,11 @@ module.exports = function ({ app, dbConn }) {
         if (response && response.length !== 0) {
           res.status(200).jsonp({ ...response[0] });
         } else {
-          res.status(200).jsonp({ message: "Your username or password is not correct" });
+          res.status(200).jsonp({ message: "Username ou senha incorretos" });
         }
       });
     } else {
-      res.status(200).jsonp({ message: "Your username or password is not correct" });
+      res.status(200).jsonp({ message: "Username ou senha incorretos" });
     }
   });
 };

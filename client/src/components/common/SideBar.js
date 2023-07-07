@@ -13,7 +13,7 @@ const Header = (props) => {
   const history = useHistory();
 
   const logout = async () => {
-    const isLogout = window.confirm('Do you want to log out ?');
+    const isLogout = window.confirm('Você quer deslogar da conta?');
     if (isLogout) {
       await cometChat.logout();
       localStorage.removeItem('auth');
