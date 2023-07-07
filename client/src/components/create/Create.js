@@ -6,6 +6,7 @@ const Create = (props) => {
   const { toggleModal } = props;
 
   const filepickerRef = useRef(null);
+  const descriptionRef = useRef(null);
 
   const [postImage, setPostImage] = useState(null);
   const [uploadedPostImage, setUploadedPostImage] = useState(null);
@@ -31,7 +32,9 @@ const Create = (props) => {
   const createFormData = () => {
     const formData = new FormData();
     formData.append('post_image', uploadedPostImage);
-    formData.append('post_created_by', user.id)
+    formData.append('post_created_by', user.id);
+    const description = descriptionRef.current.value;
+    formData.append('post_description', description);
     return formData;
   }
 
@@ -65,6 +68,9 @@ const Create = (props) => {
           </div>
         </div>
         <div className="create-post__subtitle"></div>
+        <div className="create-post__description">
+          <textarea maxlength="255" placeholder="Descrição" ref={descriptionRef}></textarea>
+        </div>
         <div className="create-post__form">
           {postImage && <div className="create-post__image" onClick={() => filepickerRef.current.click()}>
             <div>

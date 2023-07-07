@@ -6,6 +6,7 @@ import Share from './components/post/Share';
 import Profile from './components/profile/Profile';
 import Notifications from './components/notification/Notifications';
 import Search from './components/search/Search';
+import Market from './components/market/Market';
 import Chat from './components/chat/Chat';
 import Loading from './components/common/Loading';
 import PrivateRoute from './components/common/PrivateRoute';
@@ -83,6 +84,7 @@ function App() {
           <PrivateRoute exact path="/notifications" component={Notifications} />
           <PrivateRoute exact path="/search" component={Search} />
           <PrivateRoute exact path="/chat" component={Chat} />
+          <PrivateRoute exact path="/market" component={Market} />
           <Route exact path="/login">
             <Login />
           </Route>

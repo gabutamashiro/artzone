@@ -34,7 +34,6 @@ const Notifications = () => {
     }
     return (
       <div className="notifications">
-        <h3>Notifications</h3>
         <div className="notifications__container">
           {notifications && notifications.map(notification => <Notification key={notification.id} notification={notification} />)}
         </div>

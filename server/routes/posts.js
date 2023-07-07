@@ -10,12 +10,13 @@ module.exports = function ({ app, dbConn, upload }) {
       const postCategory = req.file && req.file.mimetype.includes('image') ? 1 : 2;
       const postCreatedDate = new Date();
       const postCreatedBy = req.body.post_created_by;
+      const postDescription = req.body.post_description;
       if (postCreatedBy) {
-        const createdPost = [[postContent, postCategory, postCreatedDate, postCreatedBy]];
-        const createPostSql = "INSERT INTO post (post_content, post_category, post_created_date, post_created_by) VALUES ?";
+        const createdPost = [[postContent, postCategory, postCreatedDate, postCreatedBy, postDescription]];
+        const createPostSql = "INSERT INTO post (post_content, post_category, post_created_date, post_created_by, post_description) VALUES ?";
         dbConn.query(createPostSql, [createdPost], function (error, insertedPost) {
           if (insertedPost) {
-            res.status(200).jsonp({ id: insertedPost.insertId, post_content: postContent, post_category: postCategory, post_created_date: postCreatedDate, post_created_by: postCreatedBy });
+            res.status(200).jsonp({ id: insertedPost.insertId, post_content: postContent, post_category: postCategory, post_created_date: postCreatedDate, post_created_by: postCreatedBy, post_description: postDescription });
           } else {
             res.status(200).jsonp({ message: 'Cannot upload your post, please try again' });
           }
@@ -39,7 +40,7 @@ module.exports = function ({ app, dbConn, upload }) {
 
   app.get('/posts/:id', (req, res) => {
     const id = req.params.id;
-    const getPostSql = "SELECT post.id, post_content, post_category, post_created_date, post_created_by, post_number_of_reactions, user_account.user_avatar, user_account.user_full_name, user_account.user_number_of_followers FROM post INNER JOIN user_account ON post.post_created_by = user_account.id WHERE post.id = ?";
+    const getPostSql = "SELECT post.id, post_content, post_category, post_created_date, post_created_by, post_description, post_number_of_reactions, user_account.user_avatar, user_account.user_full_name, user_account.user_number_of_followers FROM post INNER JOIN user_account ON post.post_created_by = user_account.id WHERE post.id = ?";
     if (!id) {
       res.status(200).jsonp({ message: 'Cannot load the post detail, please try again' });
     }

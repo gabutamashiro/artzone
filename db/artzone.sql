@@ -60,4 +60,17 @@ CREATE TABLE user_follower (
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE product (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    product_content VARCHAR(255) NOT NULL,
+    product_description TEXT NULL,
+    product_tag TEXT NOT NULL,
+    product_category INT NOT NULL,
+    product_price FLOAT NOT NULL,
+    product_is_free BOOLEAN NOT NULL,
+    product_created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    product_created_by VARCHAR(255) NOT NULL,
+    product_number_of_reactions INT NULL,
+    PRIMARY KEY (id)
+);
 

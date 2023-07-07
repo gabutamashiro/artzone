@@ -45,6 +45,10 @@ const Header = (props) => {
   const goSearch = () => {
     history.push('/search');
   };
+  
+  const goMarket = () => {
+    history.push('/market');
+  };
 
   return (
     <div>

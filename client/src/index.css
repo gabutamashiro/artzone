@@ -478,6 +478,28 @@ input {
   padding: 1.25rem 0 0.5rem 1.25rem;
 }
 
+.create-post__description {
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+
+}
+
+.create-post__description textarea{
+  width: 100%;
+  min-height: 2rem;
+  height: auto;
+  border-radius: 5px;
+  border: none;
+  word-wrap: break-word;
+  word-break: break-all;
+  resize: none;
+}
+
+.create-post__description textarea:focus-visible{
+  outline: none;
+}
+
 .create-post__close {
   align-items: center;
   display: grid;
@@ -664,8 +686,9 @@ input {
 
 .post-detail__main-right {
   width: 100%;
+  height: 100%;
   background-color: #fff;
-  max-height: 15rem;
+  max-height: 30rem;
 }
 
 .post-detail__creator {
@@ -679,6 +702,11 @@ input {
 
 .post-detail__post-creator:hover {
   cursor: pointer;
+}
+
+.post-detail__description p {
+  margin: 1rem;
+  font-size: 1rem;
 }
 
 .post-detail__creator img {
@@ -830,7 +858,7 @@ input {
 }
 
 .notifications__container {
-  border: 1px solid #000;
+ 
 }
 
 .notification__item {
