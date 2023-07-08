@@ -759,6 +759,12 @@ input {
   font-size: 0.81375rem;
 }
 
+.post-detail__delete {
+  cursor: pointer;
+  position: absolute;
+  justify-self: end;
+}
+
 .profile {
   margin: 0 4rem 0 20rem;
   /* max-width: 100; */
@@ -879,4 +885,33 @@ input {
 .notification__item span { 
   font-size: 0.9375rem;
   font-weight: bold;  
+}
+
+.searchContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.results {
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 4rem 0 20rem;
+  min-height: 100vh;
+  overflow: auto;
+  padding: 2rem 0.75rem;
+  padding-top: 5rem;
+  max-width: 100%;
+}
+
+.search{
+  display: flex;
+  margin: 3.5rem 0 0 17rem;
+  padding: 2rem 0.75rem;
+  min-height: 2rem;
+  max-width: 100%;
+}
+
+.searchBar{
+  border: 1px solid #000;
 }

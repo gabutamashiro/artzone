@@ -8,7 +8,7 @@ const Detail = (props) => {
 
   const [post, setPost] = useState(null);
 
-  const { cometChat, user, setIsLoading, selectedPost, setSelectedPost } = useContext(Context);
+  const { cometChat, user, setIsLoading, selectedPost, setSelectedPost, setHasNewPost } = useContext(Context);
 
   const history = useHistory();
 
@@ -36,6 +36,7 @@ const Detail = (props) => {
         return;
       } else {
         setPost(response.data[0]);
+         loadComments();
         await loadPostReaction();
       }
     } catch (error) {
@@ -73,6 +74,17 @@ const Detail = (props) => {
       const url = 'http://localhost:8080/followers/get';
       const response = await axios.post(url, { followerId: id, userId: post_created_by });
       setPost(prevPost => ({ ...prevPost, hasFollowed: response && response.data && response.data.message ? false : true }));
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+
+   const loadComments = async () => {
+    try {
+      setIsLoading(true);
+      const url = `http://localhost:8080/posts/${post.id}/comments`;
+      const response = await axios.get(url, { postId: post.id });
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -139,6 +151,18 @@ const Detail = (props) => {
     }
   };
 
+  const deletePost = async () => {
+    const wantDelete = window.confirm('Deletar o post?');
+    if (wantDelete) {
+      const url = `http://localhost:8080/post/delete/${post.id}`;
+      const response = await axios.post(url, {id: post.id});
+      setSelectedPost(null);
+      toggleModal(false);
+      setHasNewPost(true);
+    }
+  }
+
+
   const removeLike = async () => {
     const url = 'http://localhost:8080/reactions/delete';
     return await axios.post(url, { postId: post.id, userId: user.id });
@@ -201,6 +225,7 @@ const Detail = (props) => {
               <span className="post-detail__post-creator" onClick={viewProfile}>{post?.user_full_name}</span>
               {user.id !== post?.post_created_by && <div className="post-detail__dot"></div>}
               {user.id !== post?.post_created_by && <span className="post-detail__follow" onClick={toggleFollow}>{post?.hasFollowed ? 'Seguindo' : 'Seguir'}</span>}
+              {user.id === post?.post_created_by && <span className="post-detail__delete" onClick={deletePost}><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg></span>}
             </div>
             <div className="post-detail__description">
               <p>{post?.post_description}</p>
@@ -218,6 +243,13 @@ const Detail = (props) => {
             <div className="post-detail__number-of-reactions">
               <span>{post?.post_number_of_reactions ? `${post?.post_number_of_reactions} liked` : '0 Liked'}</span>
             </div>
+            {/* <div>
+              {comments.map(comment=> <div>{comment.commentContent}</div>)}
+            </div> */}
+            <div>
+
+            </div>
+
           </div>
         </div>
       </div>

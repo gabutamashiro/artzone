@@ -79,4 +79,22 @@ module.exports = function ({ app, dbConn, upload }) {
       }
     });
   });
+
+  app.post('/post/delete/:id', (req, res) => {
+    const postId = req.params.id;
+    const deletePostSql = 'DELETE FROM post WHERE id = ?';
+    dbConn.query(deletePostSql, [postId], function (error, result) {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erro ao excluir o post.' });
+        return;
+      }
+      if (result.affectedRows === 0) {
+        res.status(404).json({ message: 'Post não encontrado.' });
+        return;
+      }
+      res.status(200).json({ message: 'Post excluído com sucesso.' });
+    });
+  });
+
 }
