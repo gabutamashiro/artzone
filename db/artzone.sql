@@ -12,7 +12,7 @@ CREATE TABLE user_account (
 	user_avatar VARCHAR(255) NOT NULL,
   	user_number_of_posts INT NULL,
   	user_number_of_followers INT NULL,
-  	user_number_of_following INT NULL,
+  	user_number_of_following INT NULL deleted_at TIMESTAMP NULL,
 	PRIMARY KEY (id)
 );
 
@@ -41,7 +41,7 @@ CREATE TABLE comment (
 	parent_id BIGINT NOT NULL,
 	user_id VARCHAR(255) NOT NULL,
 	comment_content TEXT NOT NULL,
-	has_post BOOLEAN NOT NULL,
+	has_post BOOLEAN NOT NULL deleted_at TIMESTAMP NULL,
 	PRIMARY KEY (id)
 );
 

@@ -69,7 +69,7 @@ const Create = (props) => {
         </div>
         <div className="create-post__subtitle"></div>
         <div className="create-post__description">
-          <textarea maxlength="255" placeholder="Descrição" ref={descriptionRef}></textarea>
+          <textarea maxLength="255" placeholder="Descrição" ref={descriptionRef}></textarea>
         </div>
         <div className="create-post__form">
           {postImage && <div className="create-post__image" onClick={() => filepickerRef.current.click()}>

@@ -1,12 +1,17 @@
-import { useEffect, useState, useContext, useCallback} from "react";
+import { useEffect, useState, useContext, useCallback, useRef} from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
 import Context from '../../context';
+import Comment from "./Comment";
 
 const Detail = (props) => {
   const { toggleModal, isCloseHidden } = props;
 
   const [post, setPost] = useState(null);
+
+  const [comments, setComments] = useState(null);
+
+  const commentRef = useRef(null);
 
   const { cometChat, user, setIsLoading, selectedPost, setSelectedPost, setHasNewPost } = useContext(Context);
 
@@ -36,13 +41,12 @@ const Detail = (props) => {
         return;
       } else {
         setPost(response.data[0]);
-         loadComments();
+        loadComments();
         await loadPostReaction();
       }
     } catch (error) {
       setIsLoading(false);
     }
-
   }, [loadPostReaction, setIsLoading, selectedPost]);
 
   loadPostReaction = async () => {
@@ -80,14 +84,43 @@ const Detail = (props) => {
     }
   };
 
-   const loadComments = async () => {
+  const loadComments = async () => {
     try {
       setIsLoading(true);
-      const url = `http://localhost:8080/posts/${post.id}/comments`;
-      const response = await axios.get(url, { postId: post.id });
+      const url = `http://localhost:8080/posts/${selectedPost.id}/1/comments/`;
+      const response = await axios.get(url);
+      setComments(response.data)
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      console.error(error);
+    }
+  };
+
+  const createFormData = () => {
+    const commentData = new FormData();
+    commentData.append('user_id', user.id);
+    commentData.append('comment_content', commentRef.current.value);
+    return commentData;
+  }
+
+  const sendComment = async (parentId, hasPost) => {
+    try{
+      setIsLoading(true);
+      const commentData = createFormData();
+      commentData.append('parent_id', parentId);
+      commentData.append('has_post', hasPost);
+      const url = `http://localhost:8080/comments`;
+      const response = await axios.post(url, {
+        parent_id: parentId,
+        user_id: user.id,
+        comment_content: commentRef.current.value,
+        has_post:hasPost,
+      });
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
     }
   };
 
@@ -141,7 +174,7 @@ const Detail = (props) => {
       } else {
         await follow();
         await updateNumberOfFollowers(post.user_number_of_followers ? post.user_number_of_followers + 1 : 1);
-        const customMessage = { message: `${user.user_full_name} seguiu você`, type: 'notification', receiverId: post.post_created_by };
+        const customMessage = { message: `${user.user_full_name} seguiu vocÃª`, type: 'notification', receiverId: post.post_created_by };
         sendCustomMessage(customMessage);
         await createNotification(customMessage.message);
       }
@@ -217,7 +250,15 @@ const Detail = (props) => {
         </div>
         <div className="post-detail__main">
           <div className="post-detail__main-left">
-            <img src={`http://localhost:8080${post?.post_content}`} alt={`${post?.post_created_by} - ${post?.post_created_date}`} />
+           
+            { post?.post_category === 1 &&
+              <img src={`http://localhost:8080${post?.post_content}`} alt={`${post?.post_created_by} - ${post?.post_created_date}`}/>
+            }
+            { post?.post_category === 2 &&
+              <video controls width="320" height="240">
+                <source src={`http://localhost:8080${post?.post_content}`} type="video/mp4"></source>
+              </video>
+            }
           </div>
           <div className="post-detail__main-right">
             <div className="post-detail__creator">
@@ -243,13 +284,19 @@ const Detail = (props) => {
             <div className="post-detail__number-of-reactions">
               <span>{post?.post_number_of_reactions ? `${post?.post_number_of_reactions} liked` : '0 Liked'}</span>
             </div>
-            {/* <div>
-              {comments.map(comment=> <div>{comment.commentContent}</div>)}
-            </div> */}
-            <div>
-
+            <div className="post-detail__comments-input">
+              { comments !== null &&
+                <div className="post-detail__comments">
+                  { comments.map(comment => <Comment comment={comment} key={comment}/>)}
+                </div>
+              }
+              <div className="post-detail__comment-box">
+                <input className="comment_input" name="comment" ref={commentRef}></input>
+                <span className="send_comment" onClick={() => sendComment(post?.id, 1)}>
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m480-160-57-56 224-224H160v-80h487L423-744l57-56 320 320-320 320Z"/></svg>
+                </span>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
