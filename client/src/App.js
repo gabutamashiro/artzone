@@ -19,6 +19,8 @@ function App() {
   const [cometChat, setCometChat] = useState(null);
   const [hasNewPost, setHasNewPost] = useState(false);
   const [selectedPost, setSelectedPost] = useState(false);
+  const [hasNewComment, setHasNewComment] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(false);
 
   let listenCustomMessages = null;
 
@@ -75,7 +77,7 @@ function App() {
   };
 
   return (
-    <Context.Provider value={{ isLoading, setIsLoading, user, setUser, cometChat, hasNewPost, setHasNewPost, selectedPost, setSelectedPost }}>
+    <Context.Provider value={{ isLoading, setIsLoading, user, setUser, cometChat, hasNewPost, setHasNewPost, selectedPost, setSelectedPost, hasNewComment, setHasNewComment, selectedProduct, setSelectedProduct}}>
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Home} />

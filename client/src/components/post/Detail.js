@@ -13,18 +13,27 @@ const Detail = (props) => {
 
   const commentRef = useRef(null);
 
-  const { cometChat, user, setIsLoading, selectedPost, setSelectedPost, setHasNewPost } = useContext(Context);
+  const { cometChat, user, setIsLoading, selectedPost, setSelectedPost, setHasNewPost, hasNewComment, setHasNewComment} = useContext(Context);
 
   const history = useHistory();
 
   let loadPost = null;
   let loadPostReaction = null;
+  let loadComments = null;
 
   useEffect(() => {
     if (selectedPost) {
       loadPost();
     }
   }, [selectedPost, loadPost]);
+
+  useEffect(() => {
+    if (hasNewComment) {
+      loadComments();
+      commentRef.current.value = '';
+      setHasNewComment(false);
+    }
+  }, [hasNewComment, setHasNewComment, loadComments]); 
 
   loadPost = useCallback(async () => {
     if (!selectedPost) {
@@ -47,7 +56,7 @@ const Detail = (props) => {
     } catch (error) {
       setIsLoading(false);
     }
-  }, [loadPostReaction, setIsLoading, selectedPost]);
+  }, [loadPostReaction, setIsLoading, selectedPost, loadComments]);
 
   loadPostReaction = async () => {
     const userId = user.id;
@@ -84,7 +93,7 @@ const Detail = (props) => {
     }
   };
 
-  const loadComments = async () => {
+  loadComments = useCallback( async () => {
     try {
       setIsLoading(true);
       const url = `http://localhost:8080/posts/${selectedPost.id}/1/comments/`;
@@ -95,7 +104,7 @@ const Detail = (props) => {
       setIsLoading(false);
       console.error(error);
     }
-  };
+  }, [setComments, setIsLoading, selectedPost]);
 
   const createFormData = () => {
     const commentData = new FormData();
@@ -117,6 +126,7 @@ const Detail = (props) => {
         comment_content: commentRef.current.value,
         has_post:hasPost,
       });
+      setHasNewComment(true);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -174,7 +184,7 @@ const Detail = (props) => {
       } else {
         await follow();
         await updateNumberOfFollowers(post.user_number_of_followers ? post.user_number_of_followers + 1 : 1);
-        const customMessage = { message: `${user.user_full_name} seguiu vocÃª`, type: 'notification', receiverId: post.post_created_by };
+        const customMessage = { message: `${user.user_full_name} seguiu você`, type: 'notification', receiverId: post.post_created_by };
         sendCustomMessage(customMessage);
         await createNotification(customMessage.message);
       }

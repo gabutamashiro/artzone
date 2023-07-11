@@ -2,36 +2,36 @@ import { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import Header from '../common/Header';
 import SideBar from '../common/SideBar';
-import Posts from '../post/Posts';
 import Context from '../../context';
+import Products from './Products';
 
-const Home = () => {
-  const [posts, setPosts] = useState([]);
+const Market = () => {
+  const [products, setProducts] = useState([]);
 
-  const { setIsLoading, hasNewPost, setHasNewPost } = useContext(Context);
+  const { setIsLoading, hasNewProduct, setHasNewProduct } = useContext(Context);
 
-  let loadPosts = null;
+  let loadProducts = null;
 
   useEffect(() => {
-    loadPosts();
+    loadProducts();
     return () => {
-      setPosts([]);
+      setProducts([]);
     }
-  }, [loadPosts]);
+  }, [loadProducts]);
 
   useEffect(() => {
-    if (hasNewPost) {
-      loadPosts();
-      setHasNewPost(false);
+    if (hasNewProduct) {
+      loadProducts();
+      setHasNewProduct(false);
     }
-  }, [hasNewPost, loadPosts, setHasNewPost]);
+  }, [hasNewProduct, loadProducts, setHasNewProduct]);
 
-  loadPosts = useCallback(async () => {
+  loadProducts = useCallback(async () => {
     try {
       setIsLoading(true);
-      const url = 'http://localhost:8080/posts';
+      const url = 'http://localhost:8080/products';
       const response = await axios.get(url);
-      setPosts(() => response.data);
+      setProducts(() => response.data);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -45,9 +45,9 @@ const Home = () => {
       </div>
       <div id="sidebarHome">
         <SideBar/>
-        <Posts posts={posts} />
+        <Products products={products} />
       </div>
     </div>
   );
 };
-export default Home;
+export default Market;

@@ -10,8 +10,9 @@ const Comment = (props) => {
 
     const [commentUser, setCommentUser] = useState(null);
     let loadUser = null;
+    let loadReplies = null;
 
-    const { setIsLoading, user } = useContext(Context);
+    const { setIsLoading, user, setHasNewComment } = useContext(Context);
 
     const history = useHistory();
 
@@ -20,7 +21,7 @@ const Comment = (props) => {
           loadUser();
           loadReplies();
         }
-    }, [loadUser, comment]);
+    }, [loadUser, comment, loadReplies]);
 
     loadUser = useCallback(async () => {
         try {
@@ -49,7 +50,7 @@ const Comment = (props) => {
         history.push(`/profile/${commentUser.id}`);
     };
 
-    const loadReplies = async () => {
+   loadReplies = useCallback( async () => {
         try {
           setIsLoading(true);
           const url = `http://localhost:8080/posts/${comment.id}/0/comments/`;
@@ -60,13 +61,14 @@ const Comment = (props) => {
           setIsLoading(false);
           console.error(error);
         }
-    };
+    }, [setReplies, setIsLoading, comment]);
 
     const deleteComment = async () => {
       const wantDelete = window.confirm('Deletar o comentário?');
       if (wantDelete) {
         const url = `http://localhost:8080/comments/delete/${comment.id}`;
         const response = await axios.post(url, {commentId: comment.id});
+        setHasNewComment(true);
       }
     }
 

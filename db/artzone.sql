@@ -70,7 +70,6 @@ CREATE TABLE product (
     product_is_free BOOLEAN NOT NULL,
     product_created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     product_created_by VARCHAR(255) NOT NULL,
-    product_number_of_reactions INT NULL,
     PRIMARY KEY (id)
 );
 

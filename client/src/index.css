@@ -982,3 +982,23 @@ input {
   width: 85%;
   margin-left: 1rem;
 }
+
+.products{
+  display: grid;
+  grid-gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 4rem 0 20rem;
+  /* max-width: 60.9375rem; /
+  min-height: 100vh;
+  overflow: auto;
+  padding: 2rem 0.75rem;
+  / width: 60.9375rem; */
+  padding-top: 5rem;
+  max-width: 100%;
+}
+
+.product img {
+  height: 18.5rem;
+  object-fit: cover;
+  width: 100%;
+}

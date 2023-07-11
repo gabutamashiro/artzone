@@ -64,7 +64,7 @@ const Create = (props) => {
         <div className="create-post__container">
           <div className="create-post__title">Criar novo post</div>
           <div className="create-post__close">
-            <img alt="close" onClick={() => toggleModal(false)} src="https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/__geKiQnSG-.png" />
+            <svg alt="close" onClick={() => toggleModal(false)} xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
           </div>
         </div>
         <div className="create-post__subtitle"></div>
