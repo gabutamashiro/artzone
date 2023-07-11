@@ -6,6 +6,7 @@ const postRoutes = require("./posts");
 const searchRoutes = require("./search");
 const reactionRoutes = require("./reactions");
 const commentRoutes = require("./comments");
+const productRoutes = require("./products");
 
 module.exports = function ({ app, dbConn, upload }) {
   authRoutes({ app, dbConn });
@@ -16,4 +17,5 @@ module.exports = function ({ app, dbConn, upload }) {
   searchRoutes({ app, dbConn, upload });
   reactionRoutes({ app, dbConn });
   commentRoutes({ app, dbConn, upload });
+  productRoutes({ app, dbConn, upload });
 };
