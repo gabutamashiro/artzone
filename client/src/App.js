@@ -21,6 +21,7 @@ function App() {
   const [selectedPost, setSelectedPost] = useState(false);
   const [hasNewComment, setHasNewComment] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(false);
+  const [hasNewProduct, setHasNewProduct] = useState(false);
 
   let listenCustomMessages = null;
 
@@ -77,7 +78,7 @@ function App() {
   };
 
   return (
-    <Context.Provider value={{ isLoading, setIsLoading, user, setUser, cometChat, hasNewPost, setHasNewPost, selectedPost, setSelectedPost, hasNewComment, setHasNewComment, selectedProduct, setSelectedProduct}}>
+    <Context.Provider value={{ isLoading, setIsLoading, user, setUser, cometChat, hasNewPost, setHasNewPost, selectedPost, setSelectedPost, hasNewComment, setHasNewComment, selectedProduct, setSelectedProduct, hasNewProduct, setHasNewProduct}}>
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Home} />

@@ -1,46 +1,41 @@
 module.exports = function ({ app, dbConn, upload }) {
-  app.post('/products', (req, res) => {
-      const {
-        productContent,
-        productDescription,
-        productTag,
-        productCategory,
-        productPrice,
-        productIsFree,
-        productCreatedBy
-      } = req.body;
-
+  app.post('/products', upload.single('product_image'), (req, res) => {
+    const file = req.file;
+    if (!file) {
+      res.status(200).jsonp({
+        message: "Insira sua imagem",
+      });
+    } else {
+      const productContent = `/${file.filename}`; 
+      const productCategory = req.file && req.file.mimetype.includes('image') ? 1 : 2;
+      const productPrice = req.body.product_price;
+      const productIsFree = req.body.product_is_free;
       const productCreatedDate = new Date();
-  
-      const createProductSql = `INSERT INTO product
-        (product_content, product_description, product_tag, product_category, product_price, product_is_free, product_created_date, product_created_by)
-        VALUES (?, ?, ?, ?, ?, ?, ?)`;
-  
-      dbConn.query(
-        createProductSql,
-        [productContent, productDescription, productTag, productCategory, productPrice, productIsFree, productCreatedDate, productCreatedBy],
-        function (error, result) {
-          if (error) {
-            console.error(error);
-            res.status(500).json({ error: 'Erro ao criar o anúncio.' });
-          } else {
+      const productCreatedBy = req.body.product_created_by;
+      const productDescription = req.body.product_description;
+      if (productCreatedBy) {
+        const createdProduct = [[productContent, productCategory, productPrice, productIsFree, productCreatedDate, productCreatedBy, productDescription]];
+        const createProductSql = "INSERT INTO product (product_content, product_category, product_price, product_is_free, product_created_date, product_created_by, product_description) VALUES ?";
+        dbConn.query(createProductSql, [createdProduct], function (error, insertedProduct) {
+          if (insertedProduct) {
             res.status(200).jsonp({ 
-              product: {
-                id: result.insertId,
-                product_content: productContent,
-                product_tag: productTag,
-                product_description: productDescription,
-                product_category: productCategory,
-                product_price: productPrice,
-                product_is_free: productIsFree,
-                product_created_date: productCreatedDate,
-                product_created_by: productCreatedBy
-              },
-              message: 'Anúncio criado com sucesso.'
+              id: insertedProduct.insertId, 
+              product_content: productContent, 
+              product_category: productCategory, 
+              product_price: productPrice,
+              product_is_free: productIsFree,
+              product_created_date: productCreatedDate, 
+              product_created_by: productCreatedBy, 
+              product_description: productDescription 
             });
+          } else {
+            res.status(200).jsonp({ message: 'Não foi possível criar o anúncio. Tente novamente.' });
           }
-        }
-      );
+        });
+      } else {
+        res.status(200).jsonp({ message: 'Não foi possível criar o anúncio. Tente novamente.' });
+      }
+    }
   });
 
   app.get('/products', (req, res) => {

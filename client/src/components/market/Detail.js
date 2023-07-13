@@ -8,7 +8,7 @@ const Detail = (props) => {
 
   const [product, setProduct] = useState(null);
 
-  const { cometChat, user, setIsLoading, selectedProduct, setSelectedProduct, setHasNewPost } = useContext(Context);
+  const { cometChat, user, setIsLoading, selectedProduct, setSelectedProduct, setHasNewProduct } = useContext(Context);
 
   const history = useHistory();
 
@@ -127,7 +127,7 @@ const Detail = (props) => {
       const response = await axios.post(url, {id: product.id});
       setSelectedProduct(null);
       toggleModal(false);
-      setHasNewPost(true);
+      setHasNewProduct(true);
     }
   }
 

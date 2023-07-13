@@ -427,7 +427,8 @@ input {
   justify-content: space-between;
 } 
 
-.sidebar span{ 
+.sidebar .sidebarItens > span,
+.sidebar .myProfile > span { 
     display:flex;
     flex-direction: row;
     margin-top: 1rem;
@@ -437,11 +438,13 @@ input {
     padding: 0.5rem;
   
 }
-.sidebar span:hover{
+.sidebar .sidebarItens > span:hover,
+.sidebar .myProfile > span:hover {
   background-color: rgb(247, 247, 247);
 }
 
-.sidebar span p{
+.sidebar .sidebarItens > span > p,
+.sidebar .myProfile > span > p {
   margin-left: 1rem;
 }
 
@@ -1000,5 +1003,20 @@ input {
 .product img {
   height: 18.5rem;
   object-fit: cover;
+  width: 100%;
+}
+
+.posts .post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-detail__main-left {
+  height: 30rem;
+  max-width: 100%;
+}
+
+.post-detail__main-left video{
   width: 100%;
 }

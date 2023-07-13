@@ -54,9 +54,6 @@ const Header = (props) => {
     <div>
       <div className="header">
           <img onClick={goHome} src={logo} alt="ArtZone" />
-          <div className='search'>
-           {/* <input type="text"/> */}
-          </div>
       </div>
     </div>
   );

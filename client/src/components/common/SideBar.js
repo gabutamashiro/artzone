@@ -1,13 +1,12 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import withModal from '../common/Modal';
-import Create from '../create/Create';
 import Context from '../../context';
 import logo from '../../logo.png';
 import { useLocation } from 'react-router-dom';
+import CreateButton from '../create/CreateButton';
+import CreateProduct from '../market/CreateProduct';
 
 const Header = (props) => {
-  const { toggleModal } = props;
 
   const { user, setUser, cometChat } = useContext(Context);
 
@@ -23,10 +22,6 @@ const Header = (props) => {
       setUser(null);
       history.push('/login');
     }
-  };
-
-  const goCreatePost = () => {
-    toggleModal(true);
   };
 
   const goHome = () => {
@@ -53,12 +48,7 @@ const Header = (props) => {
     history.push('/chat');
   };
 
-  const goCreateProduct = () => {
-    toggleModal(true);
-  };
-
   return (
-    <div>
       <div className="sidebar">
           <div className='sidebarItens'>
           <span onClick={goHome}>
@@ -93,11 +83,7 @@ const Header = (props) => {
             }
             <p>MENSAGENS</p>
           </span>
-          <span onClick={goCreatePost}>
-            <div><svg aria-label="New Post" className="_8-yf5 " color="#262626" fill="#262626" height="22" role="img" viewBox="0 0 48 48" width="22"><path d="M31.8 48H16.2c-6.6 0-9.6-1.6-12.1-4C1.6 41.4 0 38.4 0 31.8V16.2C0 9.6 1.6 6.6 4 4.1 6.6 1.6 9.6 0 16.2 0h15.6c6.6 0 9.6 1.6 12.1 4C46.4 6.6 48 9.6 48 16.2v15.6c0 6.6-1.6 9.6-4 12.1-2.6 2.5-5.6 4.1-12.2 4.1zM16.2 3C10 3 7.8 4.6 6.1 6.2 4.6 7.8 3 10 3 16.2v15.6c0 6.2 1.6 8.4 3.2 10.1 1.6 1.6 3.8 3.1 10 3.1h15.6c6.2 0 8.4-1.6 10.1-3.2 1.6-1.6 3.1-3.8 3.1-10V16.2c0-6.2-1.6-8.4-3.2-10.1C40.2 4.6 38 3 31.8 3H16.2z"></path><path d="M36.3 25.5H11.7c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5h24.6c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5z"></path><path d="M24 37.8c-.8 0-1.5-.7-1.5-1.5V11.7c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5v24.6c0 .8-.7 1.5-1.5 1.5z"></path></svg>
-            </div>
-            <p>CRIAR</p>
-          </span>
+          <CreateButton/>
           &nbsp;
           <span onClick={goMarket}>
             { location.pathname === '/market' ?
@@ -107,15 +93,7 @@ const Header = (props) => {
             }
             <p>MERCADO</p>
           </span>
-          <span onClick={goCreateProduct}>
-          {/* { location.pathname === '/' ?
-       <div><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M556.153-117.847q-17.264 17.23-42.785 17.23-25.521 0-42.752-17.23l-352-352q-8.692-8.692-13.653-20.01-4.962-11.317-4.962-24.143v-286q0-24.538 17.731-42.268 17.73-17.731 42.268-17.731h286q12.384 0 23.725 4.834 11.342 4.833 19.659 13.012l352 352.616q17.615 17.615 17.807 43.037.192 25.422-17.038 42.653l-286 286ZM259.955-650.001q20.814 0 35.429-14.57 14.615-14.57 14.615-35.384t-14.57-35.429q-14.57-14.615-35.384-14.615t-35.429 14.57q-14.615 14.57-14.615 35.384t14.57 35.429q14.57 14.615 35.384 14.615Z"/></svg></div>
-        : */}
-       <div><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M556.153-117.847q-17.264 17.23-42.785 17.23-25.521 0-42.752-17.23l-352-352q-8.692-8.692-13.653-20.01-4.962-11.317-4.962-24.143v-286q0-24.538 17.731-42.268 17.73-17.731 42.268-17.731h286q12.384 0 23.725 4.834 11.342 4.833 19.659 13.012l352 352.616q17.615 17.615 17.807 43.037.192 25.422-17.038 42.653l-286 286ZM513.212-160l286.173-286-353.213-354H160v286l353.212 354ZM259.955-650.001q20.814 0 35.429-14.57 14.615-14.57 14.615-35.384t-14.57-35.429q-14.57-14.615-35.384-14.615t-35.429 14.57q-14.615 14.57-14.615 35.384t14.57 35.429q14.57 14.615 35.384 14.615ZM160-800Z"/></svg></div>
- {/* }  */}
-            
-            <p>ANUNCIAR</p>
-          </span>
+          <CreateProduct/>
           </div>
           &nbsp;
           <div className='myProfile' onClick={goProfile}>
@@ -129,9 +107,7 @@ const Header = (props) => {
           </span>
             </div>
         </div>
-        
-    </div>
   );
 }
 
-export default withModal(Create)(Header);
+export default Header;
