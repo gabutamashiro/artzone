@@ -11,6 +11,7 @@ import Chat from './components/chat/Chat';
 import Loading from './components/common/Loading';
 import PrivateRoute from './components/common/PrivateRoute';
 import Context from './context';
+import Order from './components/order/Order';
 import './index.css';
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
           <PrivateRoute exact path="/search" component={Search} />
           <PrivateRoute exact path="/chat" component={Chat} />
           <PrivateRoute exact path="/market" component={Market} />
+          <PrivateRoute exact path="/market/buy/:id" component={Order} />
           <Route exact path="/login">
             <Login />
           </Route>

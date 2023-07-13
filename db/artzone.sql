@@ -73,3 +73,12 @@ CREATE TABLE product (
     PRIMARY KEY (id)
 );
 
+CREATE TABLE order {
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    seller_id VARCHAR(255) NOT NULL,
+    customer_id VARCHAR(255) NOT NULL,
+    product_id BIGINT NOT NULL,
+    product_price FLOAT NULL,
+    payment_method VARCHAR(255) NOT NULL,
+    created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+}

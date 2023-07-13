@@ -1020,3 +1020,11 @@ input {
 .post-detail__main-left video{
   width: 100%;
 }
+
+.order {
+  display: flex;
+  margin: 0 4rem 0 20rem;
+  padding-top: 5rem;
+  max-width: 100%;
+  flex-direction: column;
+}
