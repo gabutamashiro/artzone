@@ -3,7 +3,6 @@ import Header from "../common/Header";
 import SideBar from '../common/SideBar';
 import Context from '../../context';
 import axios from "axios";
-import Detail from "../market/Detail";
 import ProductDetail from "./ProductDetail";
 
 const Order = (props) => {
@@ -12,6 +11,8 @@ const Order = (props) => {
 	const [orderProduct, setOrderProduct] = useState(null);
 
 	const {user, setIsLoading} = useContext(Context);
+
+	const [paymentMethod, setPaymentMethod] = useState(null);
 
 	let loadOrderProduct = null;
 
@@ -53,6 +54,7 @@ const Order = (props) => {
 				customer_id: customerId,
 				product_id: productId,
 				product_price: productPrice,
+				payment_method: paymentMethod,
 		  };
 		  const url = 'http://localhost:8080/orders';
 		  const response = await axios.post(url, orderData);
@@ -61,6 +63,10 @@ const Order = (props) => {
 		  setIsLoading(false);
 		}
 	};
+
+	const setPaymentOption = (e) => {
+    setPaymentMethod(e.target.value)
+  };
 
 	return (
 		<div>
@@ -73,11 +79,11 @@ const Order = (props) => {
 					<ProductDetail product={orderProduct}/>
 					<div className="payment-detail">
 						<h2>Pagamento</h2>
-						<div className="payment-options">
-						<input type="radio" id="opcao1" name="payment_option" value="opcao1"></input>
-						<label for="html">HTML</label>
-						<input type="radio" id="opcao2" name="payment_option" value="opcao2"></input>
-						<label for="css">CSS</label>
+						<div className="payment-options" onChange={e => setPaymentOption(e)}>
+							<input type="radio" id="opcao1" name="payment_option" value="opcao1"></input>
+							<label for="opcao1">opcao1</label>
+							<input type="radio" id="opcao2" name="payment_option" value="opcao2"></input>
+							<label for="opcao2">opcao2</label>
 						</div>
 					</div>
 					<div onClick={sendOrder}>Finalizar Compra</div>
