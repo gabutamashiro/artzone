@@ -1219,7 +1219,55 @@ input {
 }
 
 .order-resume {
-  margin: 0 4rem 0 20rem;
+  margin: 2rem 4rem 0 20rem;
   padding-top: 4rem;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.order-resume h2 {
+  text-align: center;
+}
+
+.order-resume__infos {
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #96ff40;
+  border-radius: 0.5rem;
+  background-color: #d7ffb6;
+  min-width: 20rem;
+}
+
+.order-resume__infos h3 {
+  padding-bottom: 1rem;
+}
+
+.order-resume__data {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-detail__product {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.post-detail__product-price {
+  font-weight: bold;
+}
+
+.post-detail__product-buy {
+  background-color: #40c768;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 0.75rem;
+}
+.post-detail__product-buy:hover {
+  background-color: #60d984;
 }
