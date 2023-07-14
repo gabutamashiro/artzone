@@ -11,8 +11,10 @@ import Chat from './components/chat/Chat';
 import Loading from './components/common/Loading';
 import PrivateRoute from './components/common/PrivateRoute';
 import Context from './context';
-import Order from './components/order/Order';
+import Buy from './components/order/Buy';
+import Orders from './components/order/Orders';
 import './index.css';
+import OrderResume from './components/order/OrderResume';
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +91,9 @@ function App() {
           <PrivateRoute exact path="/search" component={Search} />
           <PrivateRoute exact path="/chat" component={Chat} />
           <PrivateRoute exact path="/market" component={Market} />
-          <PrivateRoute exact path="/market/buy/:id" component={Order} />
+          <PrivateRoute exact path="/market/buy/:id" component={Buy} />
+          <PrivateRoute exact path="/:id/orders" component={Orders} />
+          <PrivateRoute exact path="/orders/resume/:id" component={OrderResume} />
           <Route exact path="/login">
             <Login />
           </Route>

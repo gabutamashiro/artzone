@@ -80,5 +80,8 @@ CREATE TABLE order {
     product_id BIGINT NOT NULL,
     product_price FLOAT NULL,
     payment_method VARCHAR(255) NOT NULL,
+	delivery_name VARCHAR(255) NOT NULL,
+	delivery_email VARCHAR(255) NOT NULL,
+	additional_info TEXT NULL,
     created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 }

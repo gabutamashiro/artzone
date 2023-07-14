@@ -132,7 +132,7 @@ const Profile = (props) => {
       } else {
         await follow();
         await updateNumberOfFollowers(userProfile.user_number_of_followers ? userProfile.user_number_of_followers + 1 : 1);
-        const customMessage = { message: `${user.user_full_name} has followed you`, type: 'notification', receiverId: userProfile.id };
+        const customMessage = { message: `${user.user_full_name} seguiu você`, type: 'notification', receiverId: userProfile.id };
         sendCustomMessage(customMessage);
         await createNotification(customMessage.message);
       }

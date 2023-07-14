@@ -9,7 +9,42 @@ const ProductDetail = (props) => {
     <div className="product-detail">
 			<h2>Resumo do pedido</h2>
 			<div className="product-detail__data">
-				<table>
+				<div className="product-detail__data-content">
+					<div className="product-detail__image">
+					{ product.product_category === 1 &&
+						<img src={`http://localhost:8080${product.product_content}`} alt={`${product.product_created_by} - ${product.product_created_date}`}/>
+					}
+					{ product.product_category === 2 &&
+						<video>
+							<source src={`http://localhost:8080${product.product_content}`} type="video/mp4"></source>
+						</video>
+					}
+					</div>
+					<div className="product-detail__description">
+						<p>Descrição:</p>
+						{product.product_description}
+					</div>
+				</div>
+				<div className="product-detail__seller-infos">
+					<p>Anunciante</p>
+					<div className="product-detail__seller-details">
+						<img src={`http://localhost:8080${product?.user_avatar}`} alt={product.user_avatar} />
+						<span className="product-detail__seller-name">{product.user_full_name}</span>
+					</div>
+				</div>
+				<div className="product-detail__data-infos">
+						{ product.product_is_free === 1 ?
+							<div className="product-detail__price">
+								<p>Produto grátis</p>
+							</div>
+							:
+							<div className="product-detail__price">
+								<p>Total:</p>
+								<span>R$ {product.product_price}</span>
+							</div>
+						}
+				</div>
+				{/* <table>
 					<tr>
 						<th>ID</th>
 						<th>Conteúdo</th>
@@ -37,7 +72,7 @@ const ProductDetail = (props) => {
 						<td>{product.user_full_name}</td>
 						<td><img src={`http://localhost:8080${product?.user_avatar}`} alt={product.user_avatar} /></td>
 					</tr>
-				</table>
+				</table> */}
 			</div>
     </div>
   );
